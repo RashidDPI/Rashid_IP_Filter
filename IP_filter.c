@@ -289,18 +289,18 @@ l2fwd_IP_forward(struct rte_mbuf *m, unsigned portid)
 
 	buffer = tx_buffer[dst_port];
 
- 	/*eh= rte_pktmbuf_mtod(m, struct rte_ether_hdr *);
+ 	eh= rte_pktmbuf_mtod(m, struct rte_ether_hdr *);
 	ip=(struct rte_ipv4_hdr *)(eh +1);
 	tcp = (struct rte_tcp_hdr *) (ip + 1);
-	len=(m->pkt_len) - sizeof(struct rte_ether_hdr) - sizeof(struct rte_ipv4_hdr);*/
-		sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
-		port_statistics[dst_port].tx += sent;
-	//eth_type=swap_Endians(eh->ether_type);
-	//printf("Ethernet type: 0X%X \n",eth_type>>16);
-    /* if (eh->ether_type == rte_cpu_to_be_16(RTE_ETHER_TYPE_IPV4))
+	len=(m->pkt_len) - sizeof(struct rte_ether_hdr) - sizeof(struct rte_ipv4_hdr);
+		//sent = rte_eth_tx_buffer(dst_port, 0, buffer, m);
+		//port_statistics[dst_port].tx += sent;
+	eth_type=swap_Endians(eh->ether_type);
+	printf("Ethernet type: 0X%X \n",eth_type>>16);
+     if (eh->ether_type == rte_cpu_to_be_16(RTE_ETHER_TYPE_IPV4))
          {
 		//eth_type=eh->ether_type;
-		//printf("Ethernet type: 0X%X \n",eth_type>>16);
+		printf("Ethernet type: 0X%X \n",eth_type>>16);
 		//printf("Ethernet type \n");
 		
 		if(ip->version_ihl>>4==4)
@@ -313,13 +313,13 @@ l2fwd_IP_forward(struct rte_mbuf *m, unsigned portid)
 		port_statistics[dst_port].tx += sent;
 		}
 	
-	}*/
+	}
 
 	//else if (eh->ether_type == rte_cpu_to_be_16(RTE_ETHER_TYPE_ARP))
 	//printf("Its an ARP packet\n");
 
-	//else
-	//printf("Its not an IPV4 packet\n");
+	else
+	printf("Its not an IPV4 packet\n");
 
 	
 }
@@ -1062,5 +1062,4 @@ main(int argc, char **argv)
 
 	return ret;
 }
-
 
